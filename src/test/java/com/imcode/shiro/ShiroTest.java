@@ -1,5 +1,6 @@
 package com.imcode.shiro;
 
+import com.common.ShiroUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -51,6 +52,18 @@ public class ShiroTest {
         System.out.println("获取到主角："+subject.getPrincipal());
 
         //11、退出
+        subject.logout();
+    }
+
+    @Test
+    public void test02(){
+        // 登陆认证
+        Subject subject = ShiroUtil.login("zhangsan", "123456");
+
+        // 检查角色和权限
+        System.out.println("是否是系统管理员？："+subject.hasRole("系统管理员"));
+        System.out.println("是否有修改权限？："+subject.isPermitted("sys:user:update"));
+
         subject.logout();
     }
 }
